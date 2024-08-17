@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjg4a5yo4wh6x"]
+
+[ext_resource type="Script" path="res://Building/building_piece.gd" id="1_haemo"]
+
+[node name="BuildingPiece" type="RigidBody2D"]
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_haemo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
