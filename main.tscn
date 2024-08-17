@@ -1,3 +1,29 @@
-[gd_scene format=3 uid="uid://mnmxtuvicw0l"]
+[gd_scene load_steps=5 format=3 uid="uid://mnmxtuvicw0l"]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource type="Texture2D" uid="uid://bf2tvur5u3q5w" path="res://icon.svg" id="1_gx7kr"]
+[ext_resource type="Script" path="res://main.gd" id="1_tqc63"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4myx8"]
+size = Vector2(128, 128)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_50s15"]
+distance = -75.0
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_tqc63")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(0, -22)
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("1_gx7kr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_4myx8")
+
+[node name="MainCamera" type="Camera2D" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("WorldBoundaryShape2D_50s15")
