@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjg4a5yo4wh6x"]
+
+[ext_resource type="Script" path="res://Building/building_piece.gd" id="1_haemo"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3d1gg"]
+bounce = 0.25
+
+[node name="BuildingPiece" type="Node"]
+script = ExtResource("1_haemo")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_3d1gg")
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+
+[connection signal="body_entered" from="RigidBody2D" to="." method="_on_rigid_body_2d_body_entered"]
