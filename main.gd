@@ -89,6 +89,9 @@ func _spawn_new_building_piece() -> void:
 
 ## Initializes the most recently added building piece
 func _initialize_new_building_piece(new_piece_y_pos: float) -> void:
+	if game_is_over:
+		return
+
 	add_child(user_current_piece)
 	all_pieces.append(user_current_piece)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://mnmxtuvicw0l"]
+[gd_scene load_steps=12 format=3 uid="uid://mnmxtuvicw0l"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_tqc63"]
 [ext_resource type="Texture2D" uid="uid://w2l3tuksyh4i" path="res://Assets/Ground 1.png" id="2_j4npn"]
@@ -6,6 +6,16 @@
 [ext_resource type="Texture2D" uid="uid://f4sirjkaalrp" path="res://Assets/Cloud 1.png" id="4_cfc7a"]
 [ext_resource type="Texture2D" uid="uid://bd2aa8kdxfm7i" path="res://Assets/Surface Cloud BG 1.png" id="4_ripnh"]
 [ext_resource type="Texture2D" uid="uid://xio5obkypaht" path="res://Assets/Cloud 2.png" id="6_7rwo3"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y6qcd"]
+friction = 0.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_02jg8"]
+normal = Vector2(-1, 0)
+distance = -200.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3mu5l"]
+friction = 0.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gywg0"]
 rough = true
@@ -28,7 +38,7 @@ position_smoothing_enabled = true
 offset_left = -375.0
 offset_top = -209.0
 offset_right = -206.0
-offset_bottom = -108.0
+offset_bottom = -30.0
 text = "WASD to move
 
 Left and Right Arrows
@@ -37,17 +47,34 @@ to rotate
 R to restart (doesn't
 fully work yet)"
 
-[node name="LeftWallMarker" type="Line2D" parent="World"]
+[node name="LeftWall" type="StaticBody2D" parent="World"]
+collision_layer = 2
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_y6qcd")
+
+[node name="Line2D" type="Line2D" parent="World/LeftWall"]
 position = Vector2(-200, 119)
 rotation = 1.5708
 points = PackedVector2Array(0, 0, -10000, 0)
 width = 2.0
 
-[node name="RightWallMarker" type="Line2D" parent="World"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/LeftWall"]
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_02jg8")
+
+[node name="RightWall" type="StaticBody2D" parent="World"]
+collision_layer = 2
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_3mu5l")
+
+[node name="Line2D" type="Line2D" parent="World/RightWall"]
 position = Vector2(200, 119)
 rotation = 1.5708
 points = PackedVector2Array(0, 0, -10000, 0)
 width = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/RightWall"]
+shape = SubResource("WorldBoundaryShape2D_02jg8")
 
 [node name="Ground" type="StaticBody2D" parent="World"]
 position = Vector2(0, 45)
