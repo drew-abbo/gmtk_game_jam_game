@@ -4,12 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://bf2tvur5u3q5w" path="res://icon.svg" id="2_xcapi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppepa"]
-size = Vector2(36, 36)
+size = Vector2(58, 58)
 
 [node name="BuildingPiece" instance=ExtResource("1_2i4tk")]
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" index="0"]
-scale = Vector2(0.28125, 0.28125)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_xcapi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" index="1"]

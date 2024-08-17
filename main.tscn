@@ -1,16 +1,59 @@
-[gd_scene load_steps=3 format=3 uid="uid://mnmxtuvicw0l"]
+[gd_scene load_steps=4 format=3 uid="uid://mnmxtuvicw0l"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_tqc63"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_50s15"]
-distance = -75.0
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gywg0"]
+rough = true
+bounce = 0.17
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yd0b2"]
+size = Vector2(1000, 215)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_tqc63")
 
 [node name="MainCamera" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
 
-[node name="Ground" type="StaticBody2D" parent="."]
+[node name="World" type="Node" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-shape = SubResource("WorldBoundaryShape2D_50s15")
+[node name="ControlInfo" type="Label" parent="World"]
+offset_left = -375.0
+offset_top = -209.0
+offset_right = -206.0
+offset_bottom = -108.0
+text = "WASD to move
+
+Left and Right Arrows
+to rotate
+
+R to restart (doesn't
+fully work yet)"
+
+[node name="LeftWallMarker" type="Line2D" parent="World"]
+position = Vector2(-200, 119)
+rotation = 1.5708
+points = PackedVector2Array(0, 0, -10000, 0)
+width = 2.0
+
+[node name="RightWallMarker" type="Line2D" parent="World"]
+position = Vector2(200, 119)
+rotation = 1.5708
+points = PackedVector2Array(0, 0, -10000, 0)
+width = 2.0
+
+[node name="Ground" type="StaticBody2D" parent="World"]
+position = Vector2(0, 45)
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_gywg0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Ground"]
+position = Vector2(0, 182.5)
+shape = SubResource("RectangleShape2D_yd0b2")
+
+[node name="Line2D" type="Line2D" parent="World/Ground"]
+position = Vector2(0, 76)
+points = PackedVector2Array(400, 0, -400, 0)
+width = 2.0
