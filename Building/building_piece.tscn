@@ -2,9 +2,12 @@
 
 [ext_resource type="Script" path="res://Building/building_piece.gd" id="1_haemo"]
 
-[node name="BuildingPiece" type="RigidBody2D"]
-max_contacts_reported = 1
-contact_monitor = true
+[node name="BuildingPiece" type="Node"]
 script = ExtResource("1_haemo")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+
+[connection signal="body_entered" from="RigidBody2D" to="." method="_on_rigid_body_2d_body_entered"]

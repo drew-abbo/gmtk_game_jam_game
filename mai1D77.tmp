@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://mnmxtuvicw0l"]
+[gd_scene load_steps=4 format=3 uid="uid://mnmxtuvicw0l"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_tqc63"]
+[ext_resource type="PackedScene" uid="uid://cbnhthckwkon5" path="res://Building/Pieces/test_piece.tscn" id="2_xppd8"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_50s15"]
 distance = -75.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_tqc63")
+
+[node name="BuildingPiece" parent="." instance=ExtResource("2_xppd8")]
 
 [node name="MainCamera" type="Camera2D" parent="."]
 
