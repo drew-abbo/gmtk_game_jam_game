@@ -1,6 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://mnmxtuvicw0l"]
+[gd_scene load_steps=9 format=3 uid="uid://mnmxtuvicw0l"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_tqc63"]
+[ext_resource type="Texture2D" uid="uid://w2l3tuksyh4i" path="res://Assets/Ground 1.png" id="2_j4npn"]
+[ext_resource type="Texture2D" uid="uid://cd1k3e27j0f0s" path="res://Assets/Sky 1.png" id="2_s0x10"]
+[ext_resource type="Texture2D" uid="uid://f4sirjkaalrp" path="res://Assets/Cloud 1.png" id="4_cfc7a"]
+[ext_resource type="Texture2D" uid="uid://bd2aa8kdxfm7i" path="res://Assets/Surface Cloud BG 1.png" id="4_ripnh"]
+[ext_resource type="Texture2D" uid="uid://xio5obkypaht" path="res://Assets/Cloud 2.png" id="6_7rwo3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gywg0"]
 rough = true
@@ -57,3 +62,98 @@ shape = SubResource("RectangleShape2D_yd0b2")
 position = Vector2(0, 76)
 points = PackedVector2Array(400, 0, -400, 0)
 width = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Ground"]
+position = Vector2(0, 125.5)
+scale = Vector2(2.96875, 2.96875)
+texture = ExtResource("2_j4npn")
+
+[node name="WorldGraphics" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="WorldGraphics"]
+layer = -1
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+
+[node name="SKY" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/ParallaxLayer"]
+position = Vector2(0, -3970)
+scale = Vector2(4.63281, 0.998291)
+texture = ExtResource("2_s0x10")
+
+[node name="Clouds 1" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.25)
+
+[node name="Cloud" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 1"]
+position = Vector2(0, 102)
+scale = Vector2(0.789063, 0.789063)
+texture = ExtResource("4_ripnh")
+
+[node name="Clouds 2" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.4)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(-477, -324)
+texture = ExtResource("4_cfc7a")
+
+[node name="Sprite2D4" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(161, -264)
+texture = ExtResource("4_cfc7a")
+
+[node name="Sprite2D5" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(400, -333)
+texture = ExtResource("4_cfc7a")
+
+[node name="Sprite2D6" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(604, -418)
+texture = ExtResource("4_cfc7a")
+
+[node name="Sprite2D2" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(-106, -321)
+texture = ExtResource("6_7rwo3")
+
+[node name="Sprite2D3" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(166, -386)
+texture = ExtResource("6_7rwo3")
+
+[node name="Sprite2D7" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(456, -346)
+texture = ExtResource("6_7rwo3")
+
+[node name="Sprite2D8" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(552, -431)
+texture = ExtResource("6_7rwo3")
+
+[node name="Clouds 3" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(-586, -388)
+texture = ExtResource("4_cfc7a")
+
+[node name="Sprite2D4" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(161, -264)
+texture = ExtResource("4_cfc7a")
+
+[node name="Sprite2D5" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(-339, -408)
+texture = ExtResource("4_cfc7a")
+
+[node name="Sprite2D6" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(-269, -289)
+texture = ExtResource("4_cfc7a")
+
+[node name="Sprite2D2" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(460, -267)
+texture = ExtResource("6_7rwo3")
+
+[node name="Sprite2D3" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(166, -386)
+texture = ExtResource("6_7rwo3")
+
+[node name="Sprite2D7" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(-11, -422)
+texture = ExtResource("6_7rwo3")
+
+[node name="Sprite2D8" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(317, -503)
+texture = ExtResource("6_7rwo3")
