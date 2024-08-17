@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjg4a5yo4wh6x"]
 
-[ext_resource type="Script" path="res://Building/building_piece.gd" id="1_haemo"]
+[ext_resource type="Script" path="res://Building/Pieces/building_piece.gd" id="1_haemo"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3d1gg"]
 bounce = 0.25

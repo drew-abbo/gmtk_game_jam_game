@@ -5,10 +5,18 @@ const CAMERA_MOVE_SPEED_MULTIPLIER: float = 0.025
 ## How fast the camera should move at the start
 var vertical_camera_move_speed: float = 2
 
-## An array of all pieces that can be spawned.
-const NEW_PIECE_POOL: Array[Resource] = [
-	preload("res://Building/Pieces/test_piece.tscn"),
+## An array of all pieces that can be spawned. This array is shuffled, pieces
+## are picked from it in order and then it's re-shuffled.
+var new_piece_pool: Array[Resource] = [
+	preload("res://Building/Pieces/Variants/circle_piece.tscn"),
+	preload("res://Building/Pieces/Variants/octagon_piece.tscn"),
+	preload("res://Building/Pieces/Variants/plus_piece.tscn"),
+	preload("res://Building/Pieces/Variants/square_piece.tscn"),
+	preload("res://Building/Pieces/Variants/triangle_piece.tscn"),
 ]
+## The index of the next piece. If >= the length of the array the array will
+## be shuffled and the index will be reset to 0 before picking.
+var next_new_piece_index: int = new_piece_pool.size();
 
 ## Max possible velocity (magnitude) of newly spawned pieces.
 const NEW_PIECE_MAX_VELOCITY_MAG: float = 100.0
@@ -70,8 +78,12 @@ func _spawn_new_building_piece() -> void:
 	if new_piece_y_pos < main_camera.position.y:
 		main_camera.position.y = new_piece_y_pos
 
-	# instantiate a new piece and then initialize (once it's loaded)
-	user_current_piece = NEW_PIECE_POOL.pick_random().instantiate()
+	# pick the next piece and then initialize (once it's loaded)
+	if next_new_piece_index >= new_piece_pool.size():
+		new_piece_pool.shuffle()
+		next_new_piece_index = 0
+	user_current_piece = new_piece_pool[next_new_piece_index].instantiate()
+	next_new_piece_index += 1
 	call_deferred("_initialize_new_building_piece", new_piece_y_pos - NEW_PIECE_OFFSET)
 
 
