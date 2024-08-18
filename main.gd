@@ -35,14 +35,6 @@ const NEW_PIECE_MAX_ANGULAR_VELOCITY: float = 5.0
 ## The vertical offset from the middle of the camera where new pieces should go
 const NEW_PIECE_OFFSET: float = 150.0
 
-## The number of seconds to include in the average volume calculation (e.g. 30
-## means the average will be calculated like it's using only data from the last
-## 30 seconds).
-const AVERAGE_VOLUME_SECONDS: float = 20
-
-## The volume of the tower (how full it is) as a percent (in range [0, 100]).
-var average_volume_percent: float = 100
-
 ## References to all pieces that have been spawned (in order).
 var all_pieces: Array[BuildingPiece] = []
 
@@ -64,8 +56,6 @@ var game_is_over: bool = false
 
 @onready var game_over_delay_timer: Timer = $GameOverDelayTimer
 
-@onready var recalculate_volume_timer: Timer = $MainCamera/VolumeReporter/RecalculateVolumeTimer
-
 @onready var fade_in_fade_out: FadeInFadeOut = $FadeInFadeOut
 
 
@@ -79,6 +69,14 @@ func _process(delta: float) -> void:
 		# move camera up
 		main_camera.position.y -= vertical_camera_move_speed * delta
 		vertical_camera_move_speed *= 1 + (CAMERA_MOVE_SPEED_MULTIPLIER * delta)
+
+		# update volume debug info
+		$MainCamera/VolumeDebugInfo.text = "avg vol = " + str(volume_reporter.average_volume) + "%"
+
+		# fail the game if the average volume is too low
+		if volume_reporter.average_volume < MIN_AVG_VOLUME:
+			print("Game over: avg volume dropped below " + str(MIN_AVG_VOLUME) + "%")
+			end_game()
 
 
 func _physics_process(_delta: float) -> void:
@@ -162,19 +160,3 @@ func _initialize_new_building_piece() -> void:
 # end the game
 func _on_game_over_delay_timer_timeout() -> void:
 	get_tree().reload_current_scene()
-
-
-func _on_recalculate_volume_timer_timeout() -> void:
-	var curr_volume_percent: float = volume_reporter.report_volume()
-	var steps: float = AVERAGE_VOLUME_SECONDS * (1 / recalculate_volume_timer.wait_time)
-	average_volume_percent = ((average_volume_percent * (steps - 1) + curr_volume_percent) / steps)
-
-	# update volume debug info
-	$MainCamera/VolumeDebugInfo.text = (
-			"curr vol = " + str(curr_volume_percent) + "%\n" +
-			"avg vol = " + str(average_volume_percent) + " %")
-
-	# fail the game if the average volume is too low
-	if average_volume_percent < MIN_AVG_VOLUME:
-		print("Game over: avg volume dropped below " + str(MIN_AVG_VOLUME) + "%")
-		end_game()
