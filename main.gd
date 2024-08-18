@@ -1,7 +1,7 @@
 extends Node2D
 
 ## How fast the camera speed should increase
-const CAMERA_MOVE_SPEED_MULTIPLIER: float = 0.025
+const CAMERA_MOVE_SPEED_MULTIPLIER: float = 0.01
 ## How fast the camera should move at the start
 var vertical_camera_move_speed: float = 2
 
@@ -30,14 +30,23 @@ var all_pieces: Array[BuildingPiece] = []
 
 ## The maximum y position of a placed piece.
 var highest_piece_pos: float = 1e10
+## The starting position of the camera (set by `_ready()`).
+var camera_start_position: Vector2
 
 @onready var main_camera: Camera2D = $MainCamera
+
+@onready var volume_reporter: VolumeReporter = $MainCamera/VolumeReporter
 
 var user_current_piece: BuildingPiece = null
 
 var game_is_over: bool = false
 
+var average_volume_percent: float = 0
+
+var volume_readings: int = 0
+
 func _ready() -> void:
+	camera_start_position = main_camera.position
 	_spawn_new_building_piece()
 
 
@@ -46,27 +55,52 @@ func _process(delta: float) -> void:
 	main_camera.position.y -= vertical_camera_move_speed * delta
 	vertical_camera_move_speed *= 1 + (CAMERA_MOVE_SPEED_MULTIPLIER * delta)
 
+	# calculate new volume
+	var curr_volume_percent: float = volume_reporter.report_volume()
+	average_volume_percent = (
+			(average_volume_percent * volume_readings + curr_volume_percent)
+			/ (volume_readings + 1))
+	volume_readings += 1
+
+	# update volume debug info
+	$MainCamera/VolumeDebugInfo.text = (
+			"curr vol = " + str(curr_volume_percent) + "%\n" +
+			"avg vol = " + str(average_volume_percent) + " %")
+
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("restart") and not game_is_over:
-		game_is_over = true
+		end_game()
 
-		# take away player control
-		user_current_piece.disconnect("building_piece_collided", _spawn_new_building_piece)
-		user_current_piece.lock_movement()
-		user_current_piece = null
 
-		# make pieces fall
-		for piece in all_pieces:
-			piece.unlock_movement()
+func end_game() -> void:
+	game_is_over = true
 
-		# stop camera from moving
-		vertical_camera_move_speed = 0
+	# take away player control
+	user_current_piece.disconnect("building_piece_collided", _spawn_new_building_piece)
+	user_current_piece.lock_movement()
+	user_current_piece = null
+
+	# make pieces fall
+	for piece in all_pieces:
+		piece.unlock_movement()
+
+	# stop camera from moving and move it down to the starting position
+	vertical_camera_move_speed = 0
+	main_camera.position = camera_start_position
+
 
 ## Spawns a new building piece for the player
 func _spawn_new_building_piece() -> void:
+	if game_is_over:
+		return
+
 	# update highest position info
-	if (user_current_piece != null and user_current_piece.position.y < highest_piece_pos):
+	if (
+			user_current_piece != null
+			and user_current_piece.is_node_ready()
+			and user_current_piece.position.y < highest_piece_pos
+	):
 		highest_piece_pos = user_current_piece.position.y
 
 	# make sure that pieces don't spawn in each other

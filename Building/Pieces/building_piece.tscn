@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Building/Pieces/building_piece.gd" id="1_haemo"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3d1gg"]
-bounce = 0.25
+bounce = 0.1
 
 [node name="BuildingPiece" type="Node"]
 script = ExtResource("1_haemo")
@@ -13,7 +13,12 @@ collision_mask = 3
 mass = 20.0
 physics_material_override = SubResource("PhysicsMaterial_3d1gg")
 gravity_scale = 0.0
-max_contacts_reported = 1
+max_contacts_reported = 2
 contact_monitor = true
 
+[node name="AllowFreezeTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="body_entered" from="RigidBody2D" to="." method="_on_rigid_body_2d_body_entered"]
+[connection signal="timeout" from="AllowFreezeTimer" to="." method="_on_allow_freeze_timer_timeout"]
