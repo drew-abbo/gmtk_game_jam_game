@@ -224,3 +224,9 @@ texture = ExtResource("6_7rwo3")
 [node name="Sprite2D8" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
 position = Vector2(317, -503)
 texture = ExtResource("6_7rwo3")
+
+[node name="GameOverDelayTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="GameOverDelayTimer" to="." method="_on_game_over_delay_timer_timeout"]

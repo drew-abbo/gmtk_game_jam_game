@@ -43,6 +43,8 @@ var camera_start_position: Vector2
 
 @onready var volume_reporter: VolumeReporter = $MainCamera/VolumeReporter
 
+@onready var game_over_delay_timer: Timer = $GameOverDelayTimer
+
 var user_current_piece: BuildingPiece = null
 
 var game_is_over: bool = false
@@ -95,6 +97,8 @@ func end_game() -> void:
 	vertical_camera_move_speed = 0
 	main_camera.position = camera_start_position
 
+	# start a timer to reset the scene tree
+	game_over_delay_timer.start()
 
 ## Spawns a new building piece for the player
 func _spawn_new_building_piece() -> void:
@@ -146,3 +150,8 @@ func _initialize_new_building_piece(new_piece_y_pos: float) -> void:
 
 	# spawn a new building piece when this one collides
 	user_current_piece.connect("building_piece_collided", _spawn_new_building_piece)
+
+
+# end the game
+func _on_game_over_delay_timer_timeout() -> void:
+	get_tree().reload_current_scene()
