@@ -4,6 +4,9 @@ extends Node
 ## Emits when the block contacts something
 signal building_piece_collided
 
+## The sprite that this one should turn into once it becomes steel.
+@export_file("*.png") var steel_sprite_version: String
+
 ## The speed added to the piece when being moved by the player.
 const PLAYER_MOVE_SPEED: float = 300
 ## The speed added to the piece when being rotated by the player.
@@ -25,7 +28,6 @@ var freeze_below_velocity: float = 30
 @onready var rigid_body_2d: RigidBody2D = $RigidBody2D
 
 @onready var allow_freeze_timer: Timer = $AllowFreezeTimer
-
 
 var position: Vector2:
 	set(new_position):
@@ -95,6 +97,8 @@ func lock_movement() -> void:
 	rigid_body_2d.set_collision_mask_value(1, false)	# gound/other pieces
 	rigid_body_2d.set_collision_mask_value(2, false)	# invisible walls
 
+	make_steel()
+
 
 ## Enables gravity and physics for the piece. Doesn't return player control.
 func unlock_movement() -> void:
@@ -107,6 +111,11 @@ func unlock_movement() -> void:
 
 	# gravity
 	rigid_body_2d.gravity_scale = 1.0
+
+
+func make_steel() -> void:
+	if has_node("RigidBody2D/Sprite2D"):
+		$RigidBody2D/Sprite2D.texture = load(steel_sprite_version)
 
 
 func _on_allow_freeze_timer_timeout() -> void:

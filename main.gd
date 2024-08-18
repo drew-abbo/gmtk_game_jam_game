@@ -8,11 +8,17 @@ var vertical_camera_move_speed: float = 2
 ## An array of all pieces that can be spawned. This array is shuffled, pieces
 ## are picked from it in order and then it's re-shuffled.
 var new_piece_pool: Array[Resource] = [
-	preload("res://Building/Pieces/Variants/circle_piece.tscn"),
-	preload("res://Building/Pieces/Variants/octagon_piece.tscn"),
-	preload("res://Building/Pieces/Variants/plus_piece.tscn"),
-	preload("res://Building/Pieces/Variants/square_piece.tscn"),
-	preload("res://Building/Pieces/Variants/triangle_piece.tscn"),
+	preload("res://Building/Pieces/Variants/angle_box_1.tscn"),
+	preload("res://Building/Pieces/Variants/angle_box_2.tscn"),
+	preload("res://Building/Pieces/Variants/box_1.tscn"),
+	preload("res://Building/Pieces/Variants/circle_1.tscn"),
+	preload("res://Building/Pieces/Variants/octagon_1.tscn"),
+	preload("res://Building/Pieces/Variants/plus_1.tscn"),
+	preload("res://Building/Pieces/Variants/triangle_1.tscn"),
+	preload("res://Building/Pieces/Variants/t_box_1.tscn"),
+	preload("res://Building/Pieces/Variants/t_box_2.tscn"),
+	preload("res://Building/Pieces/Variants/wide_box_1.tscn"),
+	preload("res://Building/Pieces/Variants/wide_box_2.tscn"),
 ]
 ## The index of the next piece. If >= the length of the array the array will
 ## be shuffled and the index will be reset to 0 before picking.
