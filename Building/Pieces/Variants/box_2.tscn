@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcvcn3vtw6gy2"]
+
+[ext_resource type="PackedScene" uid="uid://cjg4a5yo4wh6x" path="res://Building/Pieces/building_piece.tscn" id="1_xpd7r"]
+[ext_resource type="Texture2D" uid="uid://f0igjcuqj8b5" path="res://Assets/Box 2.png" id="2_1ph1g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ea644"]
+size = Vector2(30, 30)
+
+[node name="BuildingPiece" instance=ExtResource("1_xpd7r")]
+steel_sprite_version = "res://Assets/Box 2 (STEEL).png"
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" index="0"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_1ph1g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" index="1"]
+shape = SubResource("RectangleShape2D_ea644")

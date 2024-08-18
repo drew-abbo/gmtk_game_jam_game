@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://jk3rs0dgkky5"]
+
+[ext_resource type="PackedScene" uid="uid://cjg4a5yo4wh6x" path="res://Building/Pieces/building_piece.tscn" id="1_381pc"]
+[ext_resource type="Texture2D" uid="uid://t0xfdqq282ba" path="res://Assets/Triangle Type 1.png" id="2_vdpmu"]
+
+[node name="BuildingPiece" instance=ExtResource("1_381pc")]
+steel_sprite_version = "res://Assets/Triangle 1 (STEEL).png"
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" index="0"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_vdpmu")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D" index="1"]
+polygon = PackedVector2Array(0, -32, -27, 23, 27, 23)

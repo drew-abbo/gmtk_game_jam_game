@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2gyl7plthiw2"]
+
+[ext_resource type="PackedScene" uid="uid://cjg4a5yo4wh6x" path="res://Building/Pieces/building_piece.tscn" id="1_7mn77"]
+[ext_resource type="Texture2D" uid="uid://3r6enpx1usv" path="res://Assets/T Box 2.png" id="2_ocqjr"]
+
+[node name="BuildingPiece" instance=ExtResource("1_7mn77")]
+steel_sprite_version = "res://Assets/T Box 2 (STEEL).png"
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" index="0"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_ocqjr")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D" index="1"]
+polygon = PackedVector2Array(-31, -47, -1, -47, -1, -15, 31, -15, 31, 15, -1, 15, -1, 47, -31, 47)
