@@ -64,6 +64,12 @@ offset_bottom = -164.0
 text = "curr vol = XXX%
 avg vol  = XXX%"
 
+[node name="TopBarrier" type="Line2D" parent="MainCamera"]
+z_index = 100
+points = PackedVector2Array(-200, -210, 200, -210)
+width = 4.0
+default_color = Color(0.906747, 0.562963, 0.294045, 1)
+
 [node name="World" type="Node" parent="."]
 
 [node name="ControlInfo" type="Label" parent="World"]

@@ -13,8 +13,6 @@ collision_mask = 3
 mass = 20.0
 physics_material_override = SubResource("PhysicsMaterial_3d1gg")
 gravity_scale = 0.0
-max_contacts_reported = 2
-contact_monitor = true
 
 [node name="AllowFreezeTimer" type="Timer" parent="."]
 wait_time = 0.5

@@ -1,8 +1,11 @@
 class_name BuildingPiece
 extends Node
 
-## Emits when the block contacts something
-signal building_piece_collided
+## Emits when the piece is dropped.
+signal building_piece_dropped
+
+## Emits when the piece becomes steel.
+signal building_piece_became_steel
 
 ## The sprite that this one should turn into once it becomes steel.
 @export_file("*.png") var steel_sprite_version: String
@@ -56,7 +59,7 @@ func _physics_process(delta: float) -> void:
 			allow_freeze_timer.start()
 			rigid_body_2d.gravity_scale = 1.0
 			rigid_body_2d.linear_velocity.y -= PLAYER_DROP_BOOST
-			send_building_piece_collided()
+			building_piece_dropped.emit()
 			return
 
 		# handle player movement
@@ -68,19 +71,10 @@ func _physics_process(delta: float) -> void:
 	if freeze_when_slow:
 		if absf(velocity.length()) < freeze_below_velocity:
 			freeze_when_slow = false
+			building_piece_became_steel.emit()
 			lock_movement()
 		else:
 			freeze_below_velocity += delta
-
-
-func send_building_piece_collided() -> void:
-	# disable the ability for the signal to be sent in the future (even if it
-	# regains the ability to collide)
-	rigid_body_2d.call_deferred("set_contact_monitor", false)
-	rigid_body_2d.max_contacts_reported = 0
-
-	# send the signal that says that we hit something
-	building_piece_collided.emit()
 
 
 ## Locks the piece in place and removes player control.
