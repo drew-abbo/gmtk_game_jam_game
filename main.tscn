@@ -1,11 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://mnmxtuvicw0l"]
+[gd_scene load_steps=15 format=3 uid="uid://mnmxtuvicw0l"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_tqc63"]
-[ext_resource type="Texture2D" uid="uid://w2l3tuksyh4i" path="res://Assets/Ground 1.png" id="2_j4npn"]
 [ext_resource type="Texture2D" uid="uid://cd1k3e27j0f0s" path="res://Assets/Sky 1.png" id="2_s0x10"]
+[ext_resource type="Texture2D" uid="uid://cxmwjk2l2f0nj" path="res://Assets/Ground 2.png" id="3_r8pjw"]
 [ext_resource type="Texture2D" uid="uid://f4sirjkaalrp" path="res://Assets/Cloud 1.png" id="4_cfc7a"]
 [ext_resource type="Texture2D" uid="uid://bd2aa8kdxfm7i" path="res://Assets/Surface Cloud BG 1.png" id="4_ripnh"]
+[ext_resource type="Texture2D" uid="uid://c6ongkmrc0glq" path="res://Assets/Skyline 2.png" id="5_rkvv6"]
 [ext_resource type="Texture2D" uid="uid://xio5obkypaht" path="res://Assets/Cloud 2.png" id="6_7rwo3"]
+[ext_resource type="Texture2D" uid="uid://derclcqcnq5f6" path="res://Assets/Skyline 1.png" id="6_mqt28"]
 [ext_resource type="PackedScene" uid="uid://b6d2epmlana5d" path="res://Building/VolumeReporter/volume_reporter.tscn" id="7_dnm5i"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y6qcd"]
@@ -114,9 +116,10 @@ points = PackedVector2Array(400, 0, -400, 0)
 width = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Ground"]
-position = Vector2(0, 125.5)
+z_index = 10
+position = Vector2(0, 195.5)
 scale = Vector2(2.96875, 2.96875)
-texture = ExtResource("2_j4npn")
+texture = ExtResource("3_r8pjw")
 
 [node name="WorldGraphics" type="Node2D" parent="."]
 
@@ -137,6 +140,20 @@ motion_scale = Vector2(1, 0.25)
 position = Vector2(0, 102)
 scale = Vector2(0.789063, 0.789063)
 texture = ExtResource("4_ripnh")
+
+[node name="City 2" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/City 2"]
+scale = Vector2(3, 3)
+texture = ExtResource("5_rkvv6")
+
+[node name="City 1" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.6)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/City 1"]
+scale = Vector2(2, 2)
+texture = ExtResource("6_mqt28")
 
 [node name="Clouds 2" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
 motion_scale = Vector2(1, 0.4)
