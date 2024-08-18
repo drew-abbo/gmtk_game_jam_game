@@ -45,7 +45,7 @@ func _ready() -> void:
 	average_volume = 100
 
 	# hide the line if we're in the actual game
-	#line.visible = Engine.is_editor_hint()
+	line.visible = Engine.is_editor_hint()
 
 
 func _process(_delta: float) -> void:

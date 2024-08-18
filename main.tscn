@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://mnmxtuvicw0l"]
+[gd_scene load_steps=20 format=3 uid="uid://mnmxtuvicw0l"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_tqc63"]
 [ext_resource type="Texture2D" uid="uid://cd1k3e27j0f0s" path="res://Assets/Sky 1.png" id="2_s0x10"]
 [ext_resource type="Texture2D" uid="uid://cxmwjk2l2f0nj" path="res://Assets/Ground 2.png" id="3_r8pjw"]
+[ext_resource type="Texture2D" uid="uid://dgmvhntjvaq16" path="res://Assets/controls.png" id="4_bm11c"]
 [ext_resource type="Texture2D" uid="uid://f4sirjkaalrp" path="res://Assets/Cloud 1.png" id="4_cfc7a"]
 [ext_resource type="Texture2D" uid="uid://bd2aa8kdxfm7i" path="res://Assets/Surface Cloud BG 1.png" id="4_ripnh"]
 [ext_resource type="Texture2D" uid="uid://c6ongkmrc0glq" path="res://Assets/Skyline 2.png" id="5_rkvv6"]
@@ -60,18 +61,10 @@ text = "avg vol  = XXX%"
 
 [node name="World" type="Node" parent="."]
 
-[node name="ControlInfo" type="Label" parent="World"]
-offset_left = -375.0
-offset_top = -209.0
-offset_right = -206.0
-offset_bottom = -30.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "WASD to move
-
-Left and Right arrows
-to rotate
-
-F to drop a piece"
+[node name="ControlInfo" type="Sprite2D" parent="World"]
+position = Vector2(-293, 32)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_bm11c")
 
 [node name="LeftWall" type="StaticBody2D" parent="World"]
 collision_layer = 2
