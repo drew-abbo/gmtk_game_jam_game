@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://mnmxtuvicw0l"]
+[gd_scene load_steps=19 format=3 uid="uid://mnmxtuvicw0l"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_tqc63"]
 [ext_resource type="Texture2D" uid="uid://cd1k3e27j0f0s" path="res://Assets/Sky 1.png" id="2_s0x10"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://btg7upffay7jj" path="res://Assets/Skyline 3.png" id="7_fav1c"]
 [ext_resource type="Texture2D" uid="uid://cq186djbq03l5" path="res://Assets/Skyline 4.png" id="8_o7grl"]
 [ext_resource type="PackedScene" uid="uid://drbn1y7gxi1rk" path="res://FadeInFadeOut/fade_in_fade_out.tscn" id="11_8shxr"]
+[ext_resource type="Texture2D" uid="uid://ewhw6ogssb24" path="res://Assets/Stars BG 1.png" id="11_ua2g3"]
+[ext_resource type="Texture2D" uid="uid://jprf5ga31br4" path="res://Assets/Galaxy 1.png" id="13_5ngrn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y6qcd"]
 friction = 0.0
@@ -135,8 +137,8 @@ layer = -1
 [node name="ParallaxLayer" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
 
 [node name="SKY" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/ParallaxLayer"]
-position = Vector2(0, -3970)
-scale = Vector2(4.63281, 0.998291)
+position = Vector2(0, -7897)
+scale = Vector2(4.633, 2)
 texture = ExtResource("2_s0x10")
 
 [node name="Clouds 1" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
@@ -240,6 +242,21 @@ texture = ExtResource("6_7rwo3")
 [node name="Sprite2D8" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
 position = Vector2(317, -503)
 texture = ExtResource("6_7rwo3")
+
+[node name="Stars 1" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.25)
+motion_mirroring = Vector2(0, 648)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Stars 1"]
+texture = ExtResource("11_ua2g3")
+
+[node name="Galaxy" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.25)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Galaxy"]
+position = Vector2(0, -2500)
+scale = Vector2(8, 8)
+texture = ExtResource("13_5ngrn")
 
 [node name="GameOverDelayTimer" type="Timer" parent="."]
 wait_time = 3.0
