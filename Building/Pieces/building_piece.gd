@@ -85,7 +85,6 @@ func send_building_piece_collided() -> void:
 
 ## Locks the piece in place and removes player control.
 func lock_movement() -> void:
-	print("LOCKING IN")
 	is_player_controlled = false;
 
 	# stop movement
