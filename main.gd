@@ -61,6 +61,8 @@ var game_is_over: bool = false
 
 @onready var recalculate_volume_timer: Timer = $MainCamera/VolumeReporter/RecalculateVolumeTimer
 
+@onready var fade_in_fade_out: FadeInFadeOut = $FadeInFadeOut
+
 
 func _ready() -> void:
 	camera_start_position = main_camera.position
@@ -68,9 +70,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	# move camera up
-	main_camera.position.y -= vertical_camera_move_speed * delta
-	vertical_camera_move_speed *= 1 + (CAMERA_MOVE_SPEED_MULTIPLIER * delta)
+	if not game_is_over:
+		# move camera up
+		main_camera.position.y -= vertical_camera_move_speed * delta
+		vertical_camera_move_speed *= 1 + (CAMERA_MOVE_SPEED_MULTIPLIER * delta)
 
 
 func _physics_process(_delta: float) -> void:
@@ -95,7 +98,9 @@ func end_game() -> void:
 	main_camera.position = camera_start_position
 
 	# start a timer to reset the scene tree
+	# timer takes 3 seconds, fade out takes 0.5
 	game_over_delay_timer.start()
+	fade_in_fade_out.schedule_fade_to_black(2.5)
 
 
 ## Spawns a new building piece for the player
@@ -143,6 +148,8 @@ func _initialize_new_building_piece(new_piece_y_pos: float) -> void:
 	user_current_piece.velocity = (
 			Vector2(cos(rand_angle), sin(rand_angle))
 			* randf_range(-NEW_PIECE_MAX_VELOCITY_MAG, NEW_PIECE_MAX_VELOCITY_MAG))
+	if user_current_piece.velocity.y < 0:
+		user_current_piece.velocity.y = -user_current_piece.velocity.y
 	user_current_piece.angular_velocity = (
 		randf_range(-NEW_PIECE_MAX_ANGULAR_VELOCITY, NEW_PIECE_MAX_ANGULAR_VELOCITY))
 
