@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://mnmxtuvicw0l"]
+[gd_scene load_steps=12 format=3 uid="uid://mnmxtuvicw0l"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_tqc63"]
 [ext_resource type="Texture2D" uid="uid://w2l3tuksyh4i" path="res://Assets/Ground 1.png" id="2_j4npn"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://f4sirjkaalrp" path="res://Assets/Cloud 1.png" id="4_cfc7a"]
 [ext_resource type="Texture2D" uid="uid://bd2aa8kdxfm7i" path="res://Assets/Surface Cloud BG 1.png" id="4_ripnh"]
 [ext_resource type="Texture2D" uid="uid://xio5obkypaht" path="res://Assets/Cloud 2.png" id="6_7rwo3"]
-[ext_resource type="PackedScene" uid="uid://b6d2epmlana5d" path="res://Building/VolumeReporter/volume_reporter.tscn" id="7_dnm5i"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y6qcd"]
 friction = 0.0
@@ -37,19 +36,6 @@ script = ExtResource("1_tqc63")
 zoom = Vector2(1.5, 1.5)
 position_smoothing_enabled = true
 
-[node name="VolumeReporter" parent="MainCamera" instance=ExtResource("7_dnm5i")]
-z_index = 100
-position = Vector2(-200, 141)
-num_query_points = 50
-
-[node name="VolumeDebugInfo" type="Label" parent="MainCamera"]
-offset_left = 229.0
-offset_top = -213.0
-offset_right = 367.0
-offset_bottom = -164.0
-text = "curr vol = XXX%
-avg vol  = XXX%"
-
 [node name="World" type="Node" parent="."]
 
 [node name="ControlInfo" type="Label" parent="World"]
@@ -57,13 +43,10 @@ offset_left = -375.0
 offset_top = -209.0
 offset_right = -206.0
 offset_bottom = -30.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "WASD to move
 
-Left and Right arrows
+Left and Right Arrows
 to rotate
-
-F to drop a piece
 
 R to restart (doesn't
 fully work yet)"
@@ -100,7 +83,7 @@ width = 2.0
 shape = SubResource("WorldBoundaryShape2D_02jg8")
 
 [node name="Ground" type="StaticBody2D" parent="World"]
-position = Vector2(0, 46)
+position = Vector2(0, 45)
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_gywg0")
 

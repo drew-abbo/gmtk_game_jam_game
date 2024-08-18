@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6d2epmlana5d"]
+
+[ext_resource type="Script" path="res://Building/VolumeReporter/volume_reporter.gd" id="1_fd7cg"]
+
+[node name="VolumeReporter" type="Node2D"]
+script = ExtResource("1_fd7cg")
+
+[node name="Line" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 400, 0)
+width = 5.0
+default_color = Color(0.854902, 0.533333, 0.666667, 0.592157)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+rotation = 3.14159
+scale = Vector2(0.1, 0.1)
+hit_from_inside = true
