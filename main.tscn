@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://mnmxtuvicw0l"]
+[gd_scene load_steps=17 format=3 uid="uid://mnmxtuvicw0l"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_tqc63"]
 [ext_resource type="Texture2D" uid="uid://cd1k3e27j0f0s" path="res://Assets/Sky 1.png" id="2_s0x10"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b6d2epmlana5d" path="res://Building/VolumeReporter/volume_reporter.tscn" id="7_dnm5i"]
 [ext_resource type="Texture2D" uid="uid://btg7upffay7jj" path="res://Assets/Skyline 3.png" id="7_fav1c"]
 [ext_resource type="Texture2D" uid="uid://cq186djbq03l5" path="res://Assets/Skyline 4.png" id="8_o7grl"]
+[ext_resource type="PackedScene" uid="uid://drbn1y7gxi1rk" path="res://FadeInFadeOut/fade_in_fade_out.tscn" id="11_8shxr"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y6qcd"]
 friction = 0.0
@@ -241,8 +242,12 @@ position = Vector2(317, -503)
 texture = ExtResource("6_7rwo3")
 
 [node name="GameOverDelayTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.0
 one_shot = true
+
+[node name="FadeInFadeOut" parent="." instance=ExtResource("11_8shxr")]
+do_on_ready = 3
+fade_time = 0.5
 
 [connection signal="timeout" from="MainCamera/VolumeReporter/RecalculateVolumeTimer" to="." method="_on_recalculate_volume_timer_timeout"]
 [connection signal="timeout" from="GameOverDelayTimer" to="." method="_on_game_over_delay_timer_timeout"]

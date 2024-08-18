@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://drbn1y7gxi1rk"]
+
+[ext_resource type="Script" path="res://FadeInFadeOut/fade_in_fade_out.gd" id="1_7ruej"]
+[ext_resource type="Shader" path="res://FadeInFadeOut/fade_shader.gdshader" id="1_lblx0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lr7jk"]
+shader = ExtResource("1_lblx0")
+shader_parameter/black_amount = 0.0
+
+[sub_resource type="Gradient" id="Gradient_5mjs1"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jvlht"]
+gradient = SubResource("Gradient_5mjs1")
+
+[node name="FadeInFadeOut" type="Node2D"]
+script = ExtResource("1_7ruej")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 100
+material = SubResource("ShaderMaterial_lr7jk")
+scale = Vector2(8, 1125)
+texture = SubResource("GradientTexture1D_jvlht")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
