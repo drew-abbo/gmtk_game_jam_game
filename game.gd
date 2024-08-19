@@ -58,7 +58,6 @@ var game_is_over: bool = false
 
 @onready var fade_in_fade_out: FadeInFadeOut = $FadeInFadeOut
 
-
 func _ready() -> void:
 	camera_start_position = main_camera.position
 	_spawn_new_building_piece()
