@@ -109,9 +109,9 @@ func end_game() -> void:
 	main_camera.position = camera_start_position
 
 	# start a timer to reset the scene tree
-	# timer takes 3 seconds, fade out takes 0.5
 	game_over_delay_timer.start()
-	fade_in_fade_out.schedule_fade_to_black(2.5)
+	fade_in_fade_out.schedule_fade_to_black(
+			game_over_delay_timer.wait_time - fade_in_fade_out.fade_time)
 
 
 ## Spawns a new building piece for the player
