@@ -1,22 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://clqtiqgrbejj1"]
+[gd_scene load_steps=4 format=3 uid="uid://clqtiqgrbejj1"]
 
 [ext_resource type="Script" path="res://game_intro.gd" id="1_70v4e"]
 [ext_resource type="PackedScene" uid="uid://drbn1y7gxi1rk" path="res://FadeInFadeOut/fade_in_fade_out.tscn" id="2_isp5j"]
 [ext_resource type="FontFile" uid="uid://br1ixhy03bvxk" path="res://QuarryDigger-Regular.ttf" id="3_hirit"]
 
-[sub_resource type="Gradient" id="Gradient_i4maw"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_s06la"]
-gradient = SubResource("Gradient_i4maw")
-
 [node name="GameIntro" type="Node2D"]
 script = ExtResource("1_70v4e")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = -10
-scale = Vector2(19.5938, 11.25)
-texture = SubResource("GradientTexture2D_s06la")
 
 [node name="FadeInFadeOut" parent="." instance=ExtResource("2_isp5j")]
 do_on_ready = 1
@@ -24,7 +13,7 @@ fade_time = 1.5
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="SwitchSceneTimer" type="Timer" parent="."]
+[node name="SwitchFrameTimer" type="Timer" parent="."]
 wait_time = 8.0
 one_shot = true
 autostart = true
@@ -66,4 +55,4 @@ text = "music/sfx: Will McManus"
 horizontal_alignment = 1
 
 [connection signal="fade_completed" from="FadeInFadeOut" to="." method="_on_fade_in_fade_out_fade_completed"]
-[connection signal="timeout" from="SwitchSceneTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="SwitchFrameTimer" to="." method="_on_switch_frame_timer_timeout"]
