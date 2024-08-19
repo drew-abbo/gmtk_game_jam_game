@@ -1,8 +1,10 @@
 extends Node2D
 
 ## The minimum average volume percent (building topples).
-const MIN_AVG_VOLUME: float = 71
-
+const MIN_AVG_VOLUME: float = 70.5
+## The maximum average volume percent to display (stability meter is is full
+## when >= this percent).
+const MAX_AVG_VOLUME: float = 85
 
 ## How fast the camera speed should increase
 const CAMERA_MOVE_SPEED_MULTIPLIER: float = 0.0125
@@ -50,17 +52,25 @@ var user_current_piece: BuildingPiece = null
 ## Whether or not the game is over.
 var game_is_over: bool = false
 
-@onready var main_camera: Camera2D = $MainCamera
+@onready var main_camera: Camera2D = $GUI/MainCamera
 
-@onready var volume_reporter: VolumeReporter = $MainCamera/VolumeReporter
+@onready var volume_reporter: VolumeReporter = $GUI/MainCamera/VolumeReporter
 
 @onready var game_over_delay_timer: Timer = $GameOverDelayTimer
 
-@onready var fade_in_fade_out: FadeInFadeOut = $FadeInFadeOut
+@onready var fade_in_fade_out: FadeInFadeOut = $GUI/FadeInFadeOut
+
+@onready var stability_meter: StabilityMeter = $GUI/StabilityMeter
+
+@onready var gui: CanvasLayer = $GUI
 
 func _ready() -> void:
 	camera_start_position = main_camera.position
 	_spawn_new_building_piece()
+
+	# fix position of gui elements to match positions in editor (hack solution)
+	gui.scale = main_camera.zoom
+	gui.offset = get_viewport_rect().size / 2
 
 
 func _process(delta: float) -> void:
@@ -69,8 +79,12 @@ func _process(delta: float) -> void:
 		main_camera.position.y -= vertical_camera_move_speed * delta
 		vertical_camera_move_speed *= 1 + (CAMERA_MOVE_SPEED_MULTIPLIER * delta)
 
-		# update volume debug info
-		$MainCamera/VolumeDebugInfo.text = "avg vol = " + str(volume_reporter.average_volume) + "%"
+		# stability meter
+		var display_percent: float = (
+				(volume_reporter.average_volume - MIN_AVG_VOLUME) 
+				/ (MAX_AVG_VOLUME - MIN_AVG_VOLUME) * 100.0)
+
+		stability_meter.set_visible_percent(display_percent)
 
 		# fail the game if the average volume is too low
 		if volume_reporter.average_volume < MIN_AVG_VOLUME:
@@ -111,6 +125,8 @@ func end_game() -> void:
 	game_over_delay_timer.start()
 	fade_in_fade_out.schedule_fade_to_black(
 			game_over_delay_timer.wait_time - fade_in_fade_out.fade_time)
+
+	stability_meter.visible = false
 
 
 ## Spawns a new building piece for the player

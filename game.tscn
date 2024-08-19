@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://mnmxtuvicw0l"]
+[gd_scene load_steps=21 format=3 uid="uid://mnmxtuvicw0l"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_0kqn8"]
 [ext_resource type="PackedScene" uid="uid://drbn1y7gxi1rk" path="res://FadeInFadeOut/fade_in_fade_out.tscn" id="2_jg607"]
+[ext_resource type="PackedScene" uid="uid://b30v2d45n5jrs" path="res://stability_meter.tscn" id="3_apdy7"]
 [ext_resource type="PackedScene" uid="uid://b6d2epmlana5d" path="res://Building/VolumeReporter/volume_reporter.tscn" id="3_nscb4"]
 [ext_resource type="Texture2D" uid="uid://dgmvhntjvaq16" path="res://Assets/controls.png" id="4_lpg1n"]
 [ext_resource type="Texture2D" uid="uid://cxmwjk2l2f0nj" path="res://Assets/Ground 2.png" id="5_52tm1"]
@@ -40,25 +41,25 @@ size = Vector2(1000, 215)
 [node name="Game" type="Node2D"]
 script = ExtResource("1_0kqn8")
 
-[node name="FadeInFadeOut" parent="." instance=ExtResource("2_jg607")]
+[node name="GUI" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="FadeInFadeOut" parent="GUI" instance=ExtResource("2_jg607")]
 do_on_ready = 3
 fade_time = 0.5
 
-[node name="MainCamera" type="Camera2D" parent="."]
+[node name="MainCamera" type="Camera2D" parent="GUI"]
 zoom = Vector2(1.5, 1.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
 
-[node name="VolumeReporter" parent="MainCamera" instance=ExtResource("3_nscb4")]
+[node name="VolumeReporter" parent="GUI/MainCamera" instance=ExtResource("3_nscb4")]
 z_index = 100
 position = Vector2(-200, 164)
 
-[node name="VolumeDebugInfo" type="Label" parent="MainCamera"]
-offset_left = 229.0
-offset_top = -213.0
-offset_right = 367.0
-offset_bottom = -164.0
-text = "avg vol  = XXX%"
+[node name="StabilityMeter" parent="GUI" instance=ExtResource("3_apdy7")]
+z_index = 1000
+position = Vector2(300, 0)
 
 [node name="World" type="Node" parent="."]
 
