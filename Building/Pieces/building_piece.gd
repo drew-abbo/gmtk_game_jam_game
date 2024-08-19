@@ -91,6 +91,7 @@ func lock_movement() -> void:
 	rigid_body_2d.set_collision_mask_value(2, false)	# invisible walls
 
 	make_steel()
+	remove_glow()
 
 
 ## Enables gravity and physics for the piece. Doesn't return player control.
@@ -105,10 +106,23 @@ func unlock_movement() -> void:
 	# gravity
 	rigid_body_2d.gravity_scale = 1.0
 
+	remove_glow()
+
+
+func make_glow() -> void:
+	assert(has_node("RigidBody2D/Sprite2D"))
+	rigid_body_2d.material.set("shader_parameter/do_glow", true)
+
+
+func remove_glow() -> void:
+	assert(has_node("RigidBody2D/Sprite2D"))
+	rigid_body_2d.material.set("shader_parameter/do_glow", false)
+ 
 
 func make_steel() -> void:
-	if has_node("RigidBody2D/Sprite2D"):
-		$RigidBody2D/Sprite2D.texture = load(steel_sprite_version)
+	assert(has_node("RigidBody2D/Sprite2D"))
+	$RigidBody2D/Sprite2D.texture = load(steel_sprite_version)
+	remove_glow()
 
 
 func _on_allow_freeze_timer_timeout() -> void:
