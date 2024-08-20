@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8jvu5ki6og3q"]
+[gd_scene load_steps=5 format=3 uid="uid://b8jvu5ki6og3q"]
 
 [ext_resource type="PackedScene" uid="uid://cjg4a5yo4wh6x" path="res://Building/Pieces/building_piece.tscn" id="1_modlj"]
 [ext_resource type="Texture2D" uid="uid://c11txrqohtsod" path="res://Assets/Circle Type 1.png" id="2_nuqt8"]
+[ext_resource type="Material" uid="uid://bcimy1hebgo6p" path="res://Building/Pieces/glow_material.tres" id="2_tjbsw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x0qsl"]
 radius = 31.0
@@ -10,6 +11,7 @@ radius = 31.0
 steel_sprite_version = "res://Assets/Circle 1 (STEEL).png"
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" index="0"]
+material = ExtResource("2_tjbsw")
 scale = Vector2(2, 2)
 texture = ExtResource("2_nuqt8")
 

@@ -1,11 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjg4a5yo4wh6x"]
+[gd_scene load_steps=3 format=3 uid="uid://cjg4a5yo4wh6x"]
 
 [ext_resource type="Script" path="res://Building/Pieces/building_piece.gd" id="1_haemo"]
-[ext_resource type="Shader" path="res://Building/Pieces/GlowShader.gdshader" id="2_u6g4c"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e28vd"]
-shader = ExtResource("2_u6g4c")
-shader_parameter/do_glow = true
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3d1gg"]
 bounce = 0.1
@@ -14,7 +9,6 @@ bounce = 0.1
 script = ExtResource("1_haemo")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
-material = SubResource("ShaderMaterial_e28vd")
 collision_mask = 3
 mass = 20.0
 physics_material_override = SubResource("PhysicsMaterial_3d1gg")

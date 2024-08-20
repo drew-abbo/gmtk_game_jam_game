@@ -31,6 +31,10 @@ window/stretch/mode="viewport"
 
 project/assembly_name="gmtk_game"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 move_left={

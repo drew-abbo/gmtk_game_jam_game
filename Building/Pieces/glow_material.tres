@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bcimy1hebgo6p"]
+
+[ext_resource type="Shader" path="res://Building/Pieces/GlowShader.gdshader" id="1_2k4gg"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_2k4gg")
+shader_parameter/do_glow = true
