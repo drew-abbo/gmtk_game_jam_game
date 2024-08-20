@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://mnmxtuvicw0l"]
+[gd_scene load_steps=23 format=3 uid="uid://mnmxtuvicw0l"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_0kqn8"]
 [ext_resource type="PackedScene" uid="uid://drbn1y7gxi1rk" path="res://FadeInFadeOut/fade_in_fade_out.tscn" id="2_jg607"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b6d2epmlana5d" path="res://Building/VolumeReporter/volume_reporter.tscn" id="3_nscb4"]
 [ext_resource type="Texture2D" uid="uid://dgmvhntjvaq16" path="res://Assets/controls.png" id="4_lpg1n"]
 [ext_resource type="Texture2D" uid="uid://cxmwjk2l2f0nj" path="res://Assets/Ground 2.png" id="5_52tm1"]
+[ext_resource type="AudioStream" uid="uid://cabnp7dti507q" path="res://Audio/wobbly.wav" id="5_ji273"]
 [ext_resource type="Texture2D" uid="uid://cd1k3e27j0f0s" path="res://Assets/Sky 1.png" id="6_7f0vb"]
 [ext_resource type="Texture2D" uid="uid://bd2aa8kdxfm7i" path="res://Assets/Surface Cloud BG 1.png" id="7_0uggk"]
 [ext_resource type="Texture2D" uid="uid://c6ongkmrc0glq" path="res://Assets/Skyline 2.png" id="8_f017o"]
@@ -15,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://xio5obkypaht" path="res://Assets/Cloud 2.png" id="12_lq0ya"]
 [ext_resource type="Texture2D" uid="uid://ewhw6ogssb24" path="res://Assets/Stars BG 1.png" id="13_6lu5b"]
 [ext_resource type="Texture2D" uid="uid://jprf5ga31br4" path="res://Assets/Galaxy 1.png" id="14_yr276"]
+[ext_resource type="AudioStream" uid="uid://c2h75qlupx04r" path="res://Audio/game_over.wav" id="17_owsww"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y6qcd"]
 friction = 0.0
@@ -237,5 +239,16 @@ texture = ExtResource("14_yr276")
 [node name="GameOverDelayTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="LowStabilitySound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("5_ji273")
+volume_db = -7.0
+bus = &"Sfx"
+
+[node name="GameOverSound" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("17_owsww")
+bus = &"Sfx"
 
 [connection signal="timeout" from="GameOverDelayTimer" to="." method="_on_game_over_delay_timer_timeout"]

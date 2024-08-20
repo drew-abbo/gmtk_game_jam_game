@@ -8,12 +8,31 @@ extends Node
 
 var music: Resource = load(\"res://Audio/main_music.wav\")
 
+var volume: float:
+	set(new_volume):
+		audio_player.volume_db = new_volume
+	get:
+		return audio_player.volume_db
+
+var _target_volume: float;
+var _fade_time: float = 0;
+
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
-func play_music() -> void:
-	audio_player.stream = music
-	audio_player.play()
+func _ready() -> void:
+	_target_volume = audio_player.volume_db
+
+func _process(delta: float) -> void:
+	if _fade_time > 0 and volume != _target_volume:
+		var step: float = absf(_target_volume - volume) / _fade_time
+		volume = move_toward(volume, _target_volume, step * delta)
+		_fade_time = maxf(_fade_time - delta, 0.0)
+
+
+func fade_to_volume(vol: float, time: float) -> void:
+	_target_volume = vol
+	_fade_time = time
 "
 
 [node name="Music" type="Node"]

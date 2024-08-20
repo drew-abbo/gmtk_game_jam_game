@@ -5,6 +5,9 @@ const MIN_AVG_VOLUME: float = 70.5
 ## The maximum average volume percent to display (stability meter is is full
 ## when >= this percent).
 const MAX_AVG_VOLUME: float = 85
+## A low stability sound is played when the average volume percent is below this
+## threshold.
+const LOW_STABILITY_SOUND_PERCENT: float = 74.5
 
 ## How fast the camera speed should increase
 const CAMERA_MOVE_SPEED_MULTIPLIER: float = 0.0125
@@ -52,6 +55,17 @@ var user_current_piece: BuildingPiece = null
 ## Whether or not the game is over.
 var game_is_over: bool = false
 
+## Whether the low stability sound is playing.
+var low_stability_sound_is_playing: bool = false
+
+## The increasing speed of the stability meter when you lose and it leaves
+## screen.
+var stability_meter_move_off_screen_speed: float = 0.1
+var stability_meter_move_off_screen_speed_multiplier: float = 8
+
+## The volume of the music when nothing is changing it
+var music_base_volume: float
+
 @onready var main_camera: Camera2D = $GUI/MainCamera
 
 @onready var volume_reporter: VolumeReporter = $GUI/MainCamera/VolumeReporter
@@ -64,13 +78,20 @@ var game_is_over: bool = false
 
 @onready var gui: CanvasLayer = $GUI
 
+@onready var low_stability_sound: AudioStreamPlayer = $Sounds/LowStabilitySound
+
+@onready var game_over_sound: AudioStreamPlayer2D = $Sounds/GameOverSound
+
+
 func _ready() -> void:
+	music_base_volume = Music.volume
 	camera_start_position = main_camera.position
-	_spawn_new_building_piece()
 
 	# fix position of gui elements to match positions in editor (hack solution)
 	gui.scale = main_camera.zoom
 	gui.offset = get_viewport_rect().size / 2
+
+	_spawn_new_building_piece()
 
 
 func _process(delta: float) -> void:
@@ -78,6 +99,22 @@ func _process(delta: float) -> void:
 		# move camera up
 		main_camera.position.y -= vertical_camera_move_speed * delta
 		vertical_camera_move_speed *= 1 + (CAMERA_MOVE_SPEED_MULTIPLIER * delta)
+
+		# play a sound if the stability is low
+		if (
+				volume_reporter.average_volume < LOW_STABILITY_SOUND_PERCENT
+				and not low_stability_sound_is_playing
+		):
+			low_stability_sound_is_playing = true
+			low_stability_sound.play()
+			Music.fade_to_volume(music_base_volume - 5, 0.5)
+		elif (
+				volume_reporter.average_volume >= LOW_STABILITY_SOUND_PERCENT
+				and low_stability_sound_is_playing
+		):
+			low_stability_sound_is_playing = false
+			low_stability_sound.stop()
+			Music.fade_to_volume(music_base_volume, 0.5)
 
 		# stability meter
 		var display_percent: float = (
@@ -90,6 +127,12 @@ func _process(delta: float) -> void:
 		if volume_reporter.average_volume < MIN_AVG_VOLUME:
 			print("Game over: avg volume dropped below " + str(MIN_AVG_VOLUME) + "%")
 			end_game()
+
+	else:
+		# move the stability meter off screen
+		stability_meter_move_off_screen_speed *= 1 + (
+				stability_meter_move_off_screen_speed_multiplier * delta)
+		stability_meter.position.x += stability_meter_move_off_screen_speed
 
 
 func _physics_process(_delta: float) -> void:
@@ -126,7 +169,14 @@ func end_game() -> void:
 	fade_in_fade_out.schedule_fade_to_black(
 			game_over_delay_timer.wait_time - fade_in_fade_out.fade_time)
 
-	stability_meter.visible = false
+	# stop low stability sound
+	low_stability_sound_is_playing = false
+	low_stability_sound.stop()
+
+	# play game over sound (silence music and make it fade back in)
+	game_over_sound.play()
+	Music.volume = -30.0
+	Music.fade_to_volume(music_base_volume, 1.5)
 
 
 ## Spawns a new building piece for the player
