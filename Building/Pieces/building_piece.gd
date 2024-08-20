@@ -28,9 +28,13 @@ var freeze_when_slow: bool = false
 ## is less than this value the piece will freeze.
 var freeze_below_velocity: float = 30
 
+var rand_metal_picth: float = randf_range(0.8, 1.2)
+
 @onready var rigid_body_2d: RigidBody2D = $RigidBody2D
 
 @onready var allow_freeze_timer: Timer = $AllowFreezeTimer
+
+@onready var become_metal_sound: AudioStreamPlayer2D = $BecomeMetalSound
 
 var position: Vector2:
 	set(new_position):
@@ -51,11 +55,17 @@ var angular_velocity: float:
 		return rigid_body_2d.angular_velocity
 
 
+func _ready() -> void:
+	assert(has_node("RigidBody2D/Sprite2D"))
+	become_metal_sound.pitch_scale = rand_metal_picth
+
+
 func _physics_process(delta: float) -> void:
 	if is_player_controlled:
 		# player drops piece
 		if Input.is_action_just_pressed("drop_piece"):
 			is_player_controlled = false
+			remove_glow()
 			allow_freeze_timer.start()
 			rigid_body_2d.gravity_scale = 1.0
 			rigid_body_2d.linear_velocity.y -= PLAYER_DROP_BOOST
@@ -110,18 +120,15 @@ func unlock_movement() -> void:
 
 
 func make_glow() -> void:
-	assert(has_node("RigidBody2D/Sprite2D"))
-	rigid_body_2d.material.set("shader_parameter/do_glow", true)
-
+	$RigidBody2D/Sprite2D.material.set("shader_parameter/do_glow", true)
 
 func remove_glow() -> void:
-	assert(has_node("RigidBody2D/Sprite2D"))
-	rigid_body_2d.material.set("shader_parameter/do_glow", false)
+	$RigidBody2D/Sprite2D.material.set("shader_parameter/do_glow", false)
  
 
 func make_steel() -> void:
-	assert(has_node("RigidBody2D/Sprite2D"))
 	$RigidBody2D/Sprite2D.texture = load(steel_sprite_version)
+	become_metal_sound.play()
 	remove_glow()
 
 

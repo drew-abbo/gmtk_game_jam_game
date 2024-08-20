@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="gmtk_game"
-run/main_scene="res://game.tscn"
+run/main_scene="res://Game/game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Music="*res://Audio/music.tscn"
 
 [debug]
 
@@ -26,6 +30,10 @@ window/stretch/mode="viewport"
 [dotnet]
 
 project/assembly_name="gmtk_game"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 

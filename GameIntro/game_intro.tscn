@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://clqtiqgrbejj1"]
+
+[ext_resource type="Script" path="res://GameIntro/game_intro.gd" id="1_70v4e"]
+[ext_resource type="PackedScene" uid="uid://drbn1y7gxi1rk" path="res://FadeInFadeOut/fade_in_fade_out.tscn" id="2_isp5j"]
+[ext_resource type="FontFile" uid="uid://br1ixhy03bvxk" path="res://GameIntro/QuarryDigger-Regular.ttf" id="3_hirit"]
+
+[node name="GameIntro" type="Node2D"]
+script = ExtResource("1_70v4e")
+
+[node name="FadeInFadeOut" parent="." instance=ExtResource("2_isp5j")]
+do_on_ready = 1
+fade_time = 1.5
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="SwitchFrameTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+autostart = true
+
+[node name="Label1" type="Label" parent="."]
+offset_left = -374.0
+offset_top = -272.0
+offset_right = 402.0
+offset_bottom = -197.0
+rotation = 0.0950578
+theme_override_colors/font_color = Color(1, 1, 1, 0.898039)
+theme_override_fonts/font = ExtResource("3_hirit")
+theme_override_font_sizes/font_size = 60
+text = "programming: Drew Abbo"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -384.0
+offset_top = -46.0
+offset_right = 392.0
+offset_bottom = 29.0
+rotation = -0.0589213
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_hirit")
+theme_override_font_sizes/font_size = 60
+text = "art: Ryan Turley"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+offset_left = -372.0
+offset_top = 95.0
+offset_right = 412.0
+offset_bottom = 170.0
+rotation = 0.0588337
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_hirit")
+theme_override_font_sizes/font_size = 60
+text = "music/sfx: Will McManus"
+horizontal_alignment = 1
+
+[connection signal="fade_completed" from="FadeInFadeOut" to="." method="_on_fade_in_fade_out_fade_completed"]
+[connection signal="timeout" from="SwitchFrameTimer" to="." method="_on_switch_frame_timer_timeout"]

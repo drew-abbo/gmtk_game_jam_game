@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://b30v2d45n5jrs"]
+
+[ext_resource type="Texture2D" uid="uid://betyaqmtx8yfm" path="res://Assets/Stability Bar Frame.png" id="1_lb6wf"]
+[ext_resource type="Script" path="res://Game/stability_meter.gd" id="1_yq15r"]
+[ext_resource type="Texture2D" uid="uid://bd6r2uevmlfup" path="res://Assets/Stability Bar Fill.png" id="2_rnais"]
+
+[node name="StabilityMeter" type="Node2D"]
+script = ExtResource("1_yq15r")
+
+[node name="Frame" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_lb6wf")
+
+[node name="BarControl" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 125.0
+offset_right = 60.0
+offset_bottom = 375.0
+rotation = 3.14159
+
+[node name="Bar" type="Sprite2D" parent="BarControl"]
+position = Vector2(20, 125)
+rotation = 4.71239
+texture = ExtResource("2_rnais")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6figtsq2pk3m"]
+[gd_scene load_steps=5 format=3 uid="uid://b6figtsq2pk3m"]
 
 [ext_resource type="PackedScene" uid="uid://cjg4a5yo4wh6x" path="res://Building/Pieces/building_piece.tscn" id="1_0fui7"]
+[ext_resource type="Material" uid="uid://bcimy1hebgo6p" path="res://Building/Pieces/glow_material.tres" id="2_702ka"]
 [ext_resource type="Texture2D" uid="uid://cdsvn8mgw7dsg" path="res://Assets/Wide Box 1.png" id="2_hm60f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oamxq"]
@@ -10,6 +11,7 @@ size = Vector2(95, 31)
 steel_sprite_version = "res://Assets/Wide Box 1 (STEEL).png"
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" index="0"]
+material = ExtResource("2_702ka")
 scale = Vector2(2, 2)
 texture = ExtResource("2_hm60f")
 

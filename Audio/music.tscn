@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://pgmwls2y22ex"]
+
+[ext_resource type="AudioStream" uid="uid://dhvjvwdfc8r8g" path="res://Audio/main_music.wav" id="1_m7u7e"]
+
+[sub_resource type="GDScript" id="GDScript_js1pa"]
+script/source = "class_name MusicPlayer
+extends Node
+
+var music: Resource = load(\"res://Audio/main_music.wav\")
+
+var volume: float:
+	set(new_volume):
+		audio_player.volume_db = new_volume
+	get:
+		return audio_player.volume_db
+
+var _target_volume: float;
+var _fade_time: float = 0;
+
+@onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
+
+func _ready() -> void:
+	_target_volume = audio_player.volume_db
+
+
+func _process(delta: float) -> void:
+	if _fade_time > 0 and volume != _target_volume:
+		var step: float = absf(_target_volume - volume) / _fade_time
+		volume = move_toward(volume, _target_volume, step * delta)
+		_fade_time = maxf(_fade_time - delta, 0.0)
+
+
+func fade_to_volume(vol: float, time: float) -> void:
+	_target_volume = vol
+	_fade_time = time
+"
+
+[node name="Music" type="Node"]
+script = SubResource("GDScript_js1pa")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_m7u7e")
+autoplay = true
+bus = &"Music"

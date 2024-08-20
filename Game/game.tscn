@@ -1,0 +1,254 @@
+[gd_scene load_steps=23 format=3 uid="uid://mnmxtuvicw0l"]
+
+[ext_resource type="Script" path="res://Game/game.gd" id="1_0kqn8"]
+[ext_resource type="PackedScene" uid="uid://drbn1y7gxi1rk" path="res://FadeInFadeOut/fade_in_fade_out.tscn" id="2_jg607"]
+[ext_resource type="PackedScene" uid="uid://b30v2d45n5jrs" path="res://Game/stability_meter.tscn" id="3_apdy7"]
+[ext_resource type="PackedScene" uid="uid://b6d2epmlana5d" path="res://Building/VolumeReporter/volume_reporter.tscn" id="3_nscb4"]
+[ext_resource type="Texture2D" uid="uid://dgmvhntjvaq16" path="res://Assets/controls.png" id="4_lpg1n"]
+[ext_resource type="Texture2D" uid="uid://cxmwjk2l2f0nj" path="res://Assets/Ground 2.png" id="5_52tm1"]
+[ext_resource type="AudioStream" uid="uid://cabnp7dti507q" path="res://Audio/wobbly.wav" id="5_ji273"]
+[ext_resource type="Texture2D" uid="uid://cd1k3e27j0f0s" path="res://Assets/Sky 1.png" id="6_7f0vb"]
+[ext_resource type="Texture2D" uid="uid://bd2aa8kdxfm7i" path="res://Assets/Surface Cloud BG 1.png" id="7_0uggk"]
+[ext_resource type="Texture2D" uid="uid://c6ongkmrc0glq" path="res://Assets/Skyline 2.png" id="8_f017o"]
+[ext_resource type="Texture2D" uid="uid://btg7upffay7jj" path="res://Assets/Skyline 3.png" id="9_vc7a5"]
+[ext_resource type="Texture2D" uid="uid://cq186djbq03l5" path="res://Assets/Skyline 4.png" id="10_qrd0n"]
+[ext_resource type="Texture2D" uid="uid://f4sirjkaalrp" path="res://Assets/Cloud 1.png" id="11_383gg"]
+[ext_resource type="Texture2D" uid="uid://xio5obkypaht" path="res://Assets/Cloud 2.png" id="12_lq0ya"]
+[ext_resource type="Texture2D" uid="uid://ewhw6ogssb24" path="res://Assets/Stars BG 1.png" id="13_6lu5b"]
+[ext_resource type="Texture2D" uid="uid://jprf5ga31br4" path="res://Assets/Galaxy 1.png" id="14_yr276"]
+[ext_resource type="AudioStream" uid="uid://c2h75qlupx04r" path="res://Audio/game_over.wav" id="17_owsww"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_y6qcd"]
+friction = 0.0
+bounce = 1.0
+absorbent = true
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_02jg8"]
+normal = Vector2(-1, 0)
+distance = -200.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3mu5l"]
+friction = 0.0
+bounce = 1.0
+absorbent = true
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gywg0"]
+rough = true
+bounce = 0.17
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yd0b2"]
+size = Vector2(1000, 215)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_0kqn8")
+
+[node name="GUI" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="FadeInFadeOut" parent="GUI" instance=ExtResource("2_jg607")]
+do_on_ready = 3
+fade_time = 0.5
+
+[node name="MainCamera" type="Camera2D" parent="GUI"]
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+
+[node name="VolumeReporter" parent="GUI/MainCamera" instance=ExtResource("3_nscb4")]
+z_index = 100
+position = Vector2(-200, 164)
+
+[node name="StabilityMeter" parent="GUI" instance=ExtResource("3_apdy7")]
+z_index = 1000
+position = Vector2(300, 0)
+
+[node name="World" type="Node" parent="."]
+
+[node name="ControlInfo" type="Sprite2D" parent="World"]
+position = Vector2(-293, 32)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_lpg1n")
+
+[node name="LeftWall" type="StaticBody2D" parent="World"]
+collision_layer = 2
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_y6qcd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/LeftWall"]
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_02jg8")
+
+[node name="RightWall" type="StaticBody2D" parent="World"]
+collision_layer = 2
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_3mu5l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/RightWall"]
+shape = SubResource("WorldBoundaryShape2D_02jg8")
+
+[node name="Ground" type="StaticBody2D" parent="World"]
+position = Vector2(0, 46)
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_gywg0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Ground"]
+position = Vector2(0, 182.5)
+shape = SubResource("RectangleShape2D_yd0b2")
+
+[node name="Line2D" type="Line2D" parent="World/Ground"]
+position = Vector2(0, 76)
+points = PackedVector2Array(400, 0, -400, 0)
+width = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Ground"]
+z_index = 10
+position = Vector2(0, 195.5)
+scale = Vector2(3.019, 3.019)
+texture = ExtResource("5_52tm1")
+
+[node name="WorldGraphics" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="WorldGraphics"]
+layer = -1
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+
+[node name="SKY" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/ParallaxLayer"]
+position = Vector2(0, -7897)
+scale = Vector2(4.633, 2)
+texture = ExtResource("6_7f0vb")
+
+[node name="Clouds 1" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.25)
+
+[node name="Cloud" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 1"]
+position = Vector2(0, 160)
+scale = Vector2(0.789063, 0.789063)
+texture = ExtResource("7_0uggk")
+
+[node name="City 2" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/City 2"]
+position = Vector2(0, 120)
+scale = Vector2(3, 3)
+texture = ExtResource("8_f017o")
+
+[node name="City 1" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.6)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/City 1"]
+position = Vector2(-40, 130)
+scale = Vector2(2, 2)
+texture = ExtResource("9_vc7a5")
+
+[node name="City 3" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.7)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/City 3"]
+position = Vector2(60, 130)
+scale = Vector2(2, 2)
+texture = ExtResource("10_qrd0n")
+
+[node name="Clouds 2" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.4)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(-477, -324)
+texture = ExtResource("11_383gg")
+
+[node name="Sprite2D4" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(161, -264)
+texture = ExtResource("11_383gg")
+
+[node name="Sprite2D5" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(400, -333)
+texture = ExtResource("11_383gg")
+
+[node name="Sprite2D6" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(604, -418)
+texture = ExtResource("11_383gg")
+
+[node name="Sprite2D2" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(-106, -321)
+texture = ExtResource("12_lq0ya")
+
+[node name="Sprite2D3" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(166, -386)
+texture = ExtResource("12_lq0ya")
+
+[node name="Sprite2D7" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(456, -346)
+texture = ExtResource("12_lq0ya")
+
+[node name="Sprite2D8" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 2"]
+position = Vector2(552, -431)
+texture = ExtResource("12_lq0ya")
+
+[node name="Clouds 3" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(-586, -388)
+texture = ExtResource("11_383gg")
+
+[node name="Sprite2D4" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(161, -264)
+texture = ExtResource("11_383gg")
+
+[node name="Sprite2D5" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(-339, -408)
+texture = ExtResource("11_383gg")
+
+[node name="Sprite2D6" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(-269, -289)
+texture = ExtResource("11_383gg")
+
+[node name="Sprite2D2" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(460, -267)
+texture = ExtResource("12_lq0ya")
+
+[node name="Sprite2D3" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(166, -386)
+texture = ExtResource("12_lq0ya")
+
+[node name="Sprite2D7" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(-11, -422)
+texture = ExtResource("12_lq0ya")
+
+[node name="Sprite2D8" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 3"]
+position = Vector2(317, -503)
+texture = ExtResource("12_lq0ya")
+
+[node name="Stars 1" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.25)
+motion_mirroring = Vector2(0, 648)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Stars 1"]
+texture = ExtResource("13_6lu5b")
+
+[node name="Galaxy" type="ParallaxLayer" parent="WorldGraphics/ParallaxBackground"]
+motion_scale = Vector2(1, 0.25)
+
+[node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Galaxy"]
+position = Vector2(0, -2500)
+scale = Vector2(8, 8)
+texture = ExtResource("14_yr276")
+
+[node name="GameOverDelayTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="LowStabilitySound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("5_ji273")
+volume_db = -7.0
+bus = &"Sfx"
+
+[node name="GameOverSound" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("17_owsww")
+bus = &"Sfx"
+
+[connection signal="timeout" from="GameOverDelayTimer" to="." method="_on_game_over_delay_timer_timeout"]

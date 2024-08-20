@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqkg72fopp8"]
+
+[ext_resource type="Script" path="res://Cutscene/cutscene.gd" id="1_xdmvq"]
+[ext_resource type="Texture2D" uid="uid://dptieyx6ktgg5" path="res://Assets/Cutscene 1.png" id="2_cyl4p"]
+
+[node name="Cutscene" type="Node2D"]
+script = ExtResource("1_xdmvq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Frame" type="Sprite2D" parent="."]
+scale = Vector2(2.25, 2.25)
+texture = ExtResource("2_cyl4p")
+
+[node name="FrameTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="FrameTimer" to="." method="_on_timer_timeout"]

@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://blqtku4q68lyt"]
+[gd_scene load_steps=4 format=3 uid="uid://blqtku4q68lyt"]
 
 [ext_resource type="PackedScene" uid="uid://cjg4a5yo4wh6x" path="res://Building/Pieces/building_piece.tscn" id="1_aa1e1"]
+[ext_resource type="Material" uid="uid://bcimy1hebgo6p" path="res://Building/Pieces/glow_material.tres" id="2_1hl0t"]
 [ext_resource type="Texture2D" uid="uid://ciy6ogp82uyni" path="res://Assets/T Box 1.png" id="2_stivu"]
 
 [node name="BuildingPiece" instance=ExtResource("1_aa1e1")]
 steel_sprite_version = "res://Assets/T Box 1 (STEEL).png"
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" index="0"]
+material = ExtResource("2_1hl0t")
 scale = Vector2(2, 2)
 texture = ExtResource("2_stivu")
 
