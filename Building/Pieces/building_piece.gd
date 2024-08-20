@@ -36,6 +36,8 @@ var rand_metal_picth: float = randf_range(0.8, 1.2)
 
 @onready var become_metal_sound: AudioStreamPlayer2D = $BecomeMetalSound
 
+@onready var drop_block_piece: AudioStreamPlayer = $DropBlockPiece
+
 var position: Vector2:
 	set(new_position):
 		rigid_body_2d.position = new_position
@@ -70,6 +72,7 @@ func _physics_process(delta: float) -> void:
 			rigid_body_2d.gravity_scale = 1.0
 			rigid_body_2d.linear_velocity.y -= PLAYER_DROP_BOOST
 			building_piece_dropped.emit()
+			drop_block_piece.play()
 			return
 
 		# handle player movement
