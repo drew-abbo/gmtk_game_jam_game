@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjg4a5yo4wh6x"]
+[gd_scene load_steps=4 format=3 uid="uid://cjg4a5yo4wh6x"]
 
 [ext_resource type="Script" path="res://Building/Pieces/building_piece.gd" id="1_haemo"]
+[ext_resource type="AudioStream" uid="uid://bbxf3cau5jc3a" path="res://Audio/become_steel_sound.wav" id="2_eptf6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3d1gg"]
 bounce = 0.1
@@ -17,6 +18,10 @@ gravity_scale = 0.0
 [node name="AllowFreezeTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="BecomeMetalSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_eptf6")
+volume_db = -15.215
 
 [connection signal="body_entered" from="RigidBody2D" to="." method="_on_rigid_body_2d_body_entered"]
 [connection signal="timeout" from="AllowFreezeTimer" to="." method="_on_allow_freeze_timer_timeout"]
