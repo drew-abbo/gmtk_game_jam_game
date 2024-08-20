@@ -22,4 +22,4 @@ func _on_timer_timeout() -> void:
 		2: frame.texture = CUTSCENE_FRAME_2
 		3: frame.texture = CUTSCENE_FRAME_3
 		4: frame.texture = CUTSCENE_FRAME_4
-		5: get_tree().change_scene_to_file("res://game_intro.tscn")
+		5: get_tree().change_scene_to_file("res://GameIntro/game_intro.tscn")

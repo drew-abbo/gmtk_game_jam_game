@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://br1ixhy03bvxk"
-path="res://.godot/imported/QuarryDigger-Regular.ttf-993eb5d859ede0b87b5b877695ec2a1c.fontdata"
+path="res://.godot/imported/QuarryDigger-Regular.ttf-e2fee960755a06500d9eaac96170ab10.fontdata"
 
 [deps]
 
-source_file="res://QuarryDigger-Regular.ttf"
-dest_files=["res://.godot/imported/QuarryDigger-Regular.ttf-993eb5d859ede0b87b5b877695ec2a1c.fontdata"]
+source_file="res://GameIntro/QuarryDigger-Regular.ttf"
+dest_files=["res://.godot/imported/QuarryDigger-Regular.ttf-e2fee960755a06500d9eaac96170ab10.fontdata"]
 
 [params]
 

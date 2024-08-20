@@ -1,8 +1,8 @@
 [gd_scene load_steps=23 format=3 uid="uid://mnmxtuvicw0l"]
 
-[ext_resource type="Script" path="res://game.gd" id="1_0kqn8"]
+[ext_resource type="Script" path="res://Game/game.gd" id="1_0kqn8"]
 [ext_resource type="PackedScene" uid="uid://drbn1y7gxi1rk" path="res://FadeInFadeOut/fade_in_fade_out.tscn" id="2_jg607"]
-[ext_resource type="PackedScene" uid="uid://b30v2d45n5jrs" path="res://stability_meter.tscn" id="3_apdy7"]
+[ext_resource type="PackedScene" uid="uid://b30v2d45n5jrs" path="res://Game/stability_meter.tscn" id="3_apdy7"]
 [ext_resource type="PackedScene" uid="uid://b6d2epmlana5d" path="res://Building/VolumeReporter/volume_reporter.tscn" id="3_nscb4"]
 [ext_resource type="Texture2D" uid="uid://dgmvhntjvaq16" path="res://Assets/controls.png" id="4_lpg1n"]
 [ext_resource type="Texture2D" uid="uid://cxmwjk2l2f0nj" path="res://Assets/Ground 2.png" id="5_52tm1"]

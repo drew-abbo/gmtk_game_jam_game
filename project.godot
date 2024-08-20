@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="gmtk_game"
-run/main_scene="res://game.tscn"
+run/main_scene="res://Game/game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Music="*res://music.tscn"
+Music="*res://Audio/music.tscn"
 
 [debug]
 

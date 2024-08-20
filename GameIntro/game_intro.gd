@@ -14,7 +14,7 @@ func _ready() -> void:
 
 
 func _on_switch_frame_timer_timeout() -> void:
-	get_tree().change_scene_to_file("res://game.tscn")
+	get_tree().change_scene_to_file("res://Game/game.tscn")
 
 
 func _on_fade_in_fade_out_fade_completed() -> void:

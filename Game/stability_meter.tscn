@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b30v2d45n5jrs"]
 
 [ext_resource type="Texture2D" uid="uid://betyaqmtx8yfm" path="res://Assets/Stability Bar Frame.png" id="1_lb6wf"]
-[ext_resource type="Script" path="res://stability_meter.gd" id="1_yq15r"]
+[ext_resource type="Script" path="res://Game/stability_meter.gd" id="1_yq15r"]
 [ext_resource type="Texture2D" uid="uid://bd6r2uevmlfup" path="res://Assets/Stability Bar Fill.png" id="2_rnais"]
 
 [node name="StabilityMeter" type="Node2D"]
