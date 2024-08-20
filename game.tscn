@@ -119,7 +119,7 @@ texture = ExtResource("6_7f0vb")
 motion_scale = Vector2(1, 0.25)
 
 [node name="Cloud" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/Clouds 1"]
-position = Vector2(0, 102)
+position = Vector2(0, 160)
 scale = Vector2(0.789063, 0.789063)
 texture = ExtResource("7_0uggk")
 
@@ -127,7 +127,7 @@ texture = ExtResource("7_0uggk")
 motion_scale = Vector2(1, 0.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/City 2"]
-position = Vector2(0, 70)
+position = Vector2(0, 120)
 scale = Vector2(3, 3)
 texture = ExtResource("8_f017o")
 
@@ -135,7 +135,7 @@ texture = ExtResource("8_f017o")
 motion_scale = Vector2(1, 0.6)
 
 [node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/City 1"]
-position = Vector2(-40, 80)
+position = Vector2(-40, 130)
 scale = Vector2(2, 2)
 texture = ExtResource("9_vc7a5")
 
@@ -143,7 +143,7 @@ texture = ExtResource("9_vc7a5")
 motion_scale = Vector2(1, 0.7)
 
 [node name="Sprite2D" type="Sprite2D" parent="WorldGraphics/ParallaxBackground/City 3"]
-position = Vector2(60, 70)
+position = Vector2(60, 130)
 scale = Vector2(2, 2)
 texture = ExtResource("10_qrd0n")
 
